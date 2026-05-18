@@ -95,7 +95,7 @@ printf("=====================================================================\n"
     label:
 
    printf("\n");
-printf("========================================");
+printf("==========================================");
 printf("\n         MEDCORE MAIN MENU");
 printf("\n========================================");
 
@@ -194,7 +194,7 @@ scanf(" %c",&ch);
      while(1){
 
    printf("\n");
-printf("==================================================");
+printf("====================================================");
 printf("\n              MEDCORE DASHBOARD");
 printf("\n==================================================");
 
@@ -276,9 +276,18 @@ scanf("%d",&num);
    
 
      printf("\n");
-
+do{
     printf("Enter Mobile Number : ");
     scanf("%lld", &l.MobileNo);
+
+    if(l.MobileNo < 1000000000 || l.MobileNo > 9999999999)
+    {
+      printf("Invalid Number !!"); 
+      printf("Enter 10 digit number only!\n");
+    }
+
+} while(l.MobileNo < 1000000000 || l.MobileNo > 9999999999);
+
 
     printf("\n");
 
@@ -468,8 +477,17 @@ void roombooking(){
         printf("Enter Person Name %d : ", i + 1);
         scanf(" %[^\n]", name[i]);
 
-        printf("Enter Person Contact Number %d : ",i+1);
-        scanf("%lld",Mno[i]);
+       do{
+      printf("Enter Mobile Number : ");
+      scanf("%lld", &l.MobileNo);
+
+      if(l.MobileNo < 1000000000 || l.MobileNo > 9999999999)
+     {
+        printf("Enter 10 digit number only!\n");
+     }
+
+     }
+ while(l.MobileNo < 1000000000 || l.MobileNo > 9999999999);
 
     }
 
