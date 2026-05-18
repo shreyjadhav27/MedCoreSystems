@@ -200,8 +200,8 @@ printf("\n==================================================");
 
 printf("\n\t[1] Book Patient Appointment");
 printf("\n\t[2] All Patient Details");
-printf("\n\t[3] Total Bill");
-printf("\n\t[4] Book Room");
+printf("\n\t[3] Book Room");
+printf("\n\t[4] Total Bill");
 printf("\n\t[0] Exit");
 
 printf("\n\n==================================================");
@@ -237,14 +237,16 @@ scanf("%d",&num);
            //This case is used for Calculating the Bill
 
       case 3:
-           calculateBill();
+      
+        roombooking();
 
             break;
 
             //ThiS Case Used For Room Booking
 
       case 4:
-          roombooking();
+            
+        calculateBill();
 
            break;
                    
