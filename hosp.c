@@ -84,7 +84,7 @@ printf("||             Healthcare Software Solutions Powered By C          ||\n"
 printf("||                                                                 ||\n");
 printf("=====================================================================\n");
 printf("||                                                                 ||\n");
-printf("||        Patient Management  |  Billing  |  Room Booking         ||\n");
+printf("||        Patient Management  |  Billing  |  Room Booking          ||\n");
 printf("||                                                                 ||\n");
 printf("=====================================================================\n");
     
@@ -180,21 +180,21 @@ scanf(" %c",&ch);
        return 0;
 }
 
-    printf("\nHow can WE help u...?\n");
+    //printf("\nHow can WE help u...?\n");
 
     int num;
     char name[100];
     char pass[100];
 
    
-    printf("\nWHAT KIND OF INFORMATION DO U WANT...?\n");
+    //printf("\nWHAT KIND OF INFORMATION DO U WANT...?\n");
 
     printf("\nJust Enter a number : \n");
 
      while(1){
 
    printf("\n");
-printf("====================================================");
+printf("==================================================");
 printf("\n              MEDCORE DASHBOARD");
 printf("\n==================================================");
 
@@ -260,7 +260,7 @@ scanf("%d",&num);
    //---------------------------------------------------------------------------------//
     
     else {
-        printf(" Can not identified User name ");
+        printf(" Cannot identify Username ");
     }
    }
   }
