@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<string.h>
 
@@ -25,7 +24,11 @@ struct sign{
 
 };
 
-struct sign l;
+// ARRAY FOR MULTIPLE ACCOUNTS
+struct sign l[10];
+
+int totalUsers = 0;
+int currentUser = -1;
 
 //--------------------------------------------------------------//
 
@@ -174,6 +177,15 @@ label:
 void patientsign(){
 
     int valid, i;
+    char tempName[100];
+    char tempMobile[11];
+    char tempPass[100];
+
+    if(totalUsers >= 10){
+
+        printf("\nMaximum User Limit Reached!\n");
+        return;
+    }
 
     printf("\n");
     printf("=====================================================================\n");
@@ -181,7 +193,7 @@ void patientsign(){
     printf("=====================================================================\n");
 
     printf("\nEnter Patient Name : ");
-    scanf(" %[^\n]", l.name);
+    scanf(" %[^\n]", tempName);
 
     printf("\n");
 
@@ -190,16 +202,16 @@ void patientsign(){
         valid = 1;
 
         printf("Enter Mobile Number : ");
-        scanf("%s", l.MobileNo);
+        scanf("%s", tempMobile);
 
-        if(strlen(l.MobileNo) != 10){
+        if(strlen(tempMobile) != 10){
 
             valid = 0;
         }
 
-        for(i = 0; l.MobileNo[i] != '\0'; i++){
+        for(i = 0; tempMobile[i] != '\0'; i++){
 
-            if(l.MobileNo[i] < '0' || l.MobileNo[i] > '9'){
+            if(tempMobile[i] < '0' || tempMobile[i] > '9'){
 
                 valid = 0;
                 break;
@@ -217,19 +229,41 @@ void patientsign(){
     printf("\n");
 
     printf("Enter Password : ");
-    scanf("%s", l.pass);
+    scanf("%s", tempPass);
+
+    // CHECK DUPLICATE ACCOUNT
+
+    for(i = 0; i < totalUsers; i++){
+
+        if(strcmp(tempName, l[i].name) == 0 &&
+           strcmp(tempMobile, l[i].MobileNo) == 0 &&
+           strcmp(tempPass, l[i].pass) == 0){
+
+            printf("\n=====================================================================\n");
+            printf("               ACCOUNT ALREADY EXISTS                               \n");
+            printf("=====================================================================\n");
+
+            return;
+        }
+    }
+
+    strcpy(l[totalUsers].name, tempName);
+    strcpy(l[totalUsers].MobileNo, tempMobile);
+    strcpy(l[totalUsers].pass, tempPass);
 
     printf("\n");
     printf("=====================================================================\n");
     printf("                    SIGNUP SUCCESSFUL                               \n");
     printf("=====================================================================\n");
 
-    printf("\nPatient Name      : %s", l.name);
-    printf("\nMobile Number     : %s", l.MobileNo);
+    printf("\nPatient Name      : %s", l[totalUsers].name);
+    printf("\nMobile Number     : %s", l[totalUsers].MobileNo);
 
     printf("\n\n=====================================================================\n");
     printf("            THANK YOU FOR REGISTERING WITH MEDCORE                  \n");
     printf("=====================================================================\n");
+
+    totalUsers++;
 }
 
 //=====================================================================//
@@ -239,6 +273,7 @@ void patientsign(){
 void patientlogin(){
 
     char name[100], pass[100];
+    int i, found = 0;
 
     printf("\n");
     printf("=====================================================================\n");
@@ -251,7 +286,18 @@ void patientlogin(){
     printf("\nEnter Password : ");
     scanf("%s", pass);
 
-    if(strcmp(name, l.name)==0 && strcmp(pass, l.pass)==0){
+    for(i = 0; i < totalUsers; i++){
+
+        if(strcmp(name, l[i].name)==0 &&
+           strcmp(pass, l[i].pass)==0){
+
+            found = 1;
+            currentUser = i;
+            break;
+        }
+    }
+
+    if(found == 1){
 
         printf("\n=====================================================================\n");
         printf("                     LOGIN SUCCESSFUL                               \n");
@@ -368,10 +414,10 @@ void bookappoin(){
     switch(choice){
 
         case 1:{
-					       
-        	int i;
 
-            for( i=0;i<4;i++){
+            int i;
+
+            for(i=0;i<4;i++){
 
                 printf("\n[%d] %-10s",i+1,slots[0][i]);
 
@@ -388,14 +434,14 @@ void bookappoin(){
             }
 
             break;
-            
+
         }
 
         case 2:{
-			
+
             int i;
-            
-            for( i=0;i<4;i++){
+
+            for(i=0;i<4;i++){
 
                 printf("\n[%d] %-10s",i+1,slots[1][i]);
 
@@ -415,10 +461,10 @@ void bookappoin(){
         }
 
         case 3:{
-					
-           int i;
-                          
-            for( i=0;i<4;i++){
+
+            int i;
+
+            for(i=0;i<4;i++){
 
                 printf("\n[%d] %-10s",i+1,slots[2][i]);
 
@@ -438,10 +484,10 @@ void bookappoin(){
         }
 
         case 4:{
-	
-              int i;
-              
-            for( i=0;i<4;i++){
+
+            int i;
+
+            for(i=0;i<4;i++){
 
                 printf("\n[%d] %-10s",i+1,slots[3][i]);
 
@@ -461,10 +507,10 @@ void bookappoin(){
         }
 
         case 5:{
-				       	
-        	int i;
 
-            for( i=0;i<4;i++){
+            int i;
+
+            for(i=0;i<4;i++){
 
                 printf("\n[%d] %-10s",i+1,slots[4][i]);
 
@@ -484,11 +530,10 @@ void bookappoin(){
         }
 
         case 6:{
-			
-		        	
-        	int i;
 
-            for( i=0;i<4;i++){
+            int i;
+
+            for(i=0;i<4;i++){
 
                 printf("\n[%d] %-10s",i+1,slots[5][i]);
 
@@ -567,12 +612,12 @@ void bookappoin(){
     printf("               APPOINTMENT SUCCESSFULLY BOOKED                      \n");
     printf("=====================================================================\n");
 
-    printf(" Appointment ID   : %s@123HOSP\n", l.name);
+    printf(" Appointment ID   : %s@123HOSP\n", l[currentUser].name);
 
     printf("---------------------------------------------------------------------\n");
 
-    printf(" Patient Name     : %s\n", l.name);
-    printf(" Mobile Number    : %s\n", l.MobileNo);
+    printf(" Patient Name     : %s\n", l[currentUser].name);
+    printf(" Mobile Number    : %s\n", l[currentUser].MobileNo);
     printf(" Doctor Name      : %s\n", a.doctorName);
     printf(" Day              : %s\n", a.day);
     printf(" Date             : %s\n", a.date);
@@ -600,7 +645,7 @@ void calculateBill(){
     printf("=====================================================================\n");
 
     printf(" Bill No.            : BILL-01\n");
-    printf(" Patient Name        : %s\n", l.name);
+    printf(" Patient Name        : %s\n", l[currentUser].name);
     printf(" Doctor Name         : %s\n", a.doctorName);
     printf(" Appointment Date    : %s\n", a.date);
     printf(" Appointment Time    : %s\n", a.time);
@@ -628,4 +673,3 @@ void calculateBill(){
 
     printf("=====================================================================\n");
 }
-
